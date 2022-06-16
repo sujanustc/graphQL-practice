@@ -17,16 +17,16 @@ const UserType = new GraphQLObjectType({
     })
 })
 
+var db = require('./models');
+const User = db.users;
+
 const RootQuery = new GraphQLObjectType({
     name: 'xyz',
     fields:{
         userList:{
             type: new GraphQLList(UserType),
             resolve(parent,args){
-                let data = [
-                    {id:12,name:'codeimprove', email:'codeimprove@gmail.com', phone: '123456789'},
-                    {id:13,name:'code', email:'code@gmail.com', phone: '1123456789'},
-                ]
+                let data = db.users.findAll()
                 return data;
             }
         }
